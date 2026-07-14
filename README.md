@@ -13,12 +13,6 @@ This repository contains the full analysis pipeline: data acquisition, explorato
 │   └── German_Electricity_Demand_Forecasting.ipynb   # Main analysis notebook (all parts)
 ├── data/
 │   └── (raw data is downloaded at runtime — see below, not stored in repo)
-├── figures/
-│   └── (all generated plots, saved automatically when the notebook runs)
-├── results/
-│   └── metrics_table.csv                              # Final model comparison table
-└── report/
-    └── German_Electricity_Demand_Forecasting_Report.docx
 ```
  
 ## Data Sources
@@ -47,7 +41,7 @@ No data files are committed to this repository — the notebook downloads both d
 ```bash
    jupyter notebook notebooks/German_Electricity_Demand_Forecasting.ipynb
 ```
-   Or open it directly in [Google Colab](https://colab.research.google.com/).
+   Or open it directly in [Google Colab]([https://colab.research.google.com/](https://colab.research.google.com/drive/1dGIJqNDaUy9hfkMF4bMH1UGHxYyZkNOQ?usp=sharing)).
  
    **Note:** the SARIMA grid search (Part 3) and LSTM hyperparameter comparison (Part 6) are computationally heavy and may take several hours on CPU. See the notebook markdown cells for expected runtimes at each step.
  
@@ -66,7 +60,7 @@ No data files are committed to this repository — the notebook downloads both d
  
 ## Key Results
  
-All models were evaluated on the same 104-week (2-year) held-out test horizon. Full results are in [`results/metrics_table.csv`](results/metrics_table.csv).
+All models were evaluated on the same 104-week (2-year) held-out test horizon.
  
 | Model | RMSE | MAE | MAPE (%) |
 |---|---|---|---|
@@ -80,8 +74,6 @@ All models were evaluated on the same 104-week (2-year) held-out test horizon. F
 | SARIMAX (+Temperature, conditional) | 883,644 | 749,962 | 8.43 |
  
 **Headline finding:** Seasonal Naive is a very strong benchmark for this series given its dominant annual seasonality. Only Random Forest matches it, largely because its feature importances show the 52-week load lag dominates its predictions (78% importance) — it has effectively re-derived the seasonal-naive heuristic. SARIMAX (with temperature) underperforms plain SARIMA, a result discussed in detail in the report (Section 5.4) — the covariate reinforces an incorrect seasonal-normality assumption during the COVID-19 period, when the actual demand shock was unrelated to temperature.
- 
-Full methodology, justification of modelling choices, and critical discussion are in the [report](report/German_Electricity_Demand_Forecasting_Report.docx).
  
 ## Known Limitations
  
